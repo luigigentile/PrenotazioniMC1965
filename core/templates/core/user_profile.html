@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {{ block.super }} -  Profile : {{ user.username}} {% endblock head_title %}
+
+{% block content %}
+<div class="row mt-2">
+    <div class="col-4">
+        <div class="card my-1">
+            <div class="card-header">
+                <h4> {% if request.user == user %} Il tuo {% endif %}  Profilo Utente </h4>
+                <div class="card-body">
+                    <p class = "lead mb-0">@{{ user.username}}</p>
+                    <p class = "lead mb-0">{{ user.first_name}} {{ user.last_name}} </p>
+                    <p class = "lead mb-0">email: {{ user.email}} </p>
+                    <p class = 'mb-0'>Iscrizione: {{ user.date_joined|date:'d M Y' }}</p>
+                    <p class = 'mb-0'>Numero Iscritti: {{ user.iscrizioni.count }}</p>
+                </div>
+                    <div class="card-footer"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-8">
+        <div class="card my-1">
+            <div class="card-header">
+                <h4>Iscrizioni</h4>
+                <div class="card-body">
+                    {% for iscrizione in iscrizioni_utente %}
+                        <a href="{{ discussione.get_absolute_url }}">{{ iscrizione.id_evento1}}</a>
+                        <p class = 'text-muted mb-0'>{{ iscrizione.id_evento }} - {{ iscrizione.cognome }}  {{ iscrizione.nome }}</p>
+                    {% empty %}
+                        {% if request.user != user %}
+                            <p> non hai creato alcuna discusione</p>
+                        {% else %}
+                            <p> non hai creato alcuna discusione</p>
+                        {% endif %}
+                    {% endfor %}
+                </div
+
+            </div>
+            <div class="card-footer"></div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

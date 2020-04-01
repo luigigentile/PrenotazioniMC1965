@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block head_title %} {{ block.super }} -  Aggiorna: {{iscrizioni.id_evento }} {% endblock head_title %}
+
+{% block content %}
+    <div class="container mt-3">
+        <h2>Aggiorna Iscrizione</h2>
+        <h3 >Utente:  {{ request.user.username }}</h3>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input href="/" class = ' btn btn-primary mr-4' type="submit" value="Aggiorna">
+        <a type="button" href="javascript:history.back()" class="btn btn-primary">"Indietro"</a>
+    </form>
+</div>
+{% endblock content %}

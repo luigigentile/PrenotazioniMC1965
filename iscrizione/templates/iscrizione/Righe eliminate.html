@@ -1,0 +1,17 @@
+ <a href="{% url 'crea_iscrizione' pk=evento.id %} "></a>
+ <a href="/admin/iscrizione/iscrizioni/1/delete/" class="deletelink">Cancella</a>
+ <img src="/static/admin/img/icon-changelink.svg" alt="Modifica">
+
+ <a class="related-widget-wrapper-link change-related" id="change_id_id_fermata"
+ data-href-template="/admin/iscrizione/tabellafermate/__fk__/change/?_to_field=id&amp;_popup=1"
+  title="Modifica la selezione fermata"
+   href="/admin/iscrizione/tabellafermate/1/change/?_to_field=id&amp;_popup=1">
+   <img src="/static/admin/img/icon-changelink.svg" alt="Modifica"></a>
+
+
+   <a href="{% url 'update_iscrizione' pk=iscrizione.id %} ">
+       <strong>@{{ iscrizione.nome }} {{ iscrizione.cognome }}</strong></a>
+
+
+
+    <a  href="{% url 'delete_iscrizione' pk=iscrizione.id %} ">Cancella</a>

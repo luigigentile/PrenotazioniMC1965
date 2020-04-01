@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head_title %} {{ block.super }} -  Crea Nuova Iscrizione  {% endblock head_title %}
+
+{% block content %}
+        <div class="row-justify-center mt-4">
+            <div class="col-6">
+                <h2>Crea Iscrizione in {{ evento }}!</h2>
+                <h3>Partenza da: {{ evento.parte_da }}</h3>
+                <form class="" method="POST" novalidate>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" class="btn btn-success btn-lg mr-4" name="btn btn-info" value="Crea    ">
+                    <a type="button" href="javascript:history.back()" class="btn btn-primary btn-lg">"Indietro"</a>
+                </form>
+
+            </div>
+
+        </div>
+
+  {% endblock content %}

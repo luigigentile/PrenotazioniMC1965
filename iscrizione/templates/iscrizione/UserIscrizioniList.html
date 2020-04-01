@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block head_title %} {{ block.super }} -  Lista Iscrizioni   {% endblock head_title %}
+{% block content %}
+
+  <script type="text/javascript">
+  function SelezionaEvento() {
+    var IdEvento = document.getElementById('SelectIdEvento').value ;
+    var linkPage = 'http://127.0.0.1:8000/iscrizione/' + IdEvento + '/useriscrizionilistforevento';
+    window.location.href = linkPage;
+
+    return messaggio;
+    }
+  </script>
+      <!-- selezione di un evento -->
+     <form>
+         <tr><th><label for="id_evento">Evento:</label></th><td>
+              <select id="SelectIdEvento" name="evento" required id="id_evento" ">
+               Copia()">
+               <option value="">---------</option>
+             {% for evento  in eventi %}
+               <option value= {{ evento.id }}  > {{ evento.evento}}   </option>
+             {% endfor %}
+         </select></td></tr>
+
+         <!-- BUTTOM FILTRA    -->
+          <input type="button" value = "Filtra" onclick = "SelezionaEvento()" >
+    </form>
+
+    <div class=" text-right">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; prima</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">precedente</a>
+                {% endif %}
+
+                <span class="current">
+                    Pagina {{ page_obj.number }} di  {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Successiva</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+              {% endif %}
+            </span>
+        </div>
+
+
+    <div class="container">
+  <div class="row">
+    <div class="col-10">
+     <h2 class= 'mt-3'>Lista Iscrizioni:</h2>
+    </div>
+    <div class="col-2 mt-2">
+        <a type="button" href="javascript:history.back()" class="btn btn-primary btn-lg">Indietro</a>
+    </div>
+  </div>
+</div>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 border-bottom border-secondary">Evento</div>
+            <div class="col-lg-5 border-bottom border-secondary">Nominativo </a> </div>
+            <div class="col-lg-2 border-bottom border-secondary">Sale a   </div>
+            <div class="col-lg-2 border-bottom border-secondary">Telefono</div>
+        </div>
+    </div>
+
+    {% load static %}
+
+
+    {% for iscrizione in object_list %}
+    <div class="container">
+    <div class="row">
+
+        <div class="col-lg-3">
+             {{ iscrizione.id_evento }}
+        </div>
+            <div class="col-lg-5">
+
+             {{ iscrizione.nome }} {{ iscrizione.cognome }}  <a  href="{% url 'update_iscrizione' pk=iscrizione.id %} " title ="Modifica">
+             <img src="/static/admin/img/icon-changelink.svg" alt="Modifica"> </a>
+             <a class="related-widget-wrapper-link add-related" id="add_id_id_user"
+              href="{% url 'delete_iscrizione' pk=iscrizione.id %} " title="Elimina l'iscrizione">
+              <img src="{% static 'elimina.png' %}" style = 'max-width:10%' alt="Elimina"></a>
+
+            </div>
+
+
+            <div class="col-lg-2"> {{ iscrizione.id_fermata }}    </div>
+            <div class="col-lg-2"> {{ iscrizione.telefono }}    </div>
+    </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock content %}

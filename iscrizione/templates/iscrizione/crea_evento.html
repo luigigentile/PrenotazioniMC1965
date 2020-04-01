@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head_title %} {{ block.super }} -  Crea Nuovo Evento  {% endblock head_title %}
+
+{% block content %}
+        <div class="row-justify-center mt-4">
+            <div class="col-6">
+                <h2>Crea Nuovo Evento!</h2>
+                <h3>Utente: {{ user.username }}</h3>
+                <form class="" method="POST" novalidate>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" class="btn btn-success btn-lg mr-4" value="Crea ">
+                    <a type="button" href="javascript:history.back()" class="btn btn-primary btn-lg">Indietro</a>
+                </form>
+
+            </div>
+
+        </div>
+
+  {% endblock content %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block head_title %} {{ block.super }} - Elimina Iscrizione {% endblock head_title %}
+
+
+p class = 'mb-0'><b>Autore :</b> {{ post_da_eliminare.autore_post }}</p>
+
+
+
+
+{% block content %}
+<p class = 'mb-0'><b>Utente :</b> {{ request.user.username }}</p>
+<p class = 'mt-0'><b>Evento:</b > {{ object.id_evento }}</p>
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-6 text-center">
+            <p class = 'mb-0'>Sei sicuro di voler cancellare la seguente iscrizione:</p>
+            <p class = 'mt-0' >{{ object.nome|truncatewords:15 }} {{ object.cognome|truncatewords:15 }}<br>
+            Evento : {{ object.id_evento }} </p>
+            <p> All of the following objects and their related items will be deleted:</p>
+
+            <form  method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="delete_selected">
+                <input type="hidden" name="post" value="yes">
+                <input type="submit"  value="Yes, I'm sure" ">
+                <a href="javascript:history.back()" class="button cancel-link">"No, take me back"</a>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

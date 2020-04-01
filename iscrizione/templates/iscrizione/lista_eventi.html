@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {{ block.super }} -  Lista Eventi  {% endblock head_title %}
+
+{% block content %}
+
+    <div class="container">
+  <div class="row">
+    <div class="col-10">
+     <h2 class= 'mt-3'>Iscrizione ai Prossimi Eventi:</h2>
+    </div>
+    <div class="col-2 mt-2">
+        {% if  request.user.is_staff %}
+        <a type="button" href="{% url 'crea_evento' %}" class="btn btn-primary ">Nuovo Evento</a>
+        {% endif  %}
+
+    </div>
+  </div>
+</div>
+
+
+    <br>
+
+
+    {% for evento in object_list %}
+        {% if forloop.first %}<div class="row">{% endif %}
+            <div class="col-lg-4">
+                <div class="card my-1 border border-info">
+                    <div class="card-body py-0">
+                        <p class='mb-0'><strong>@{{ evento.evento }}</strong>
+                        <a class="related-widget-wrapper-link add-related" id="add_id_id_user"
+                         href="{% url 'crea_iscrizione' pk=evento.id %}" title="Inserisci un altro partecipante">
+                         <img src="/static/admin/img/icon-addlink.svg" alt="Aggiungi"></a>
+                         </p>
+                        Iscrizioni Totali: {{ evento.get_number_of_iscrizioni }}<br>
+                        Iscrizioni  utente: <a href="{% url 'user_iscrizioni_list_for_evento' pk=evento.id  %} ">
+                                        {{ evento.get_number_of_iscrizioni_for_utente }}</a><br>
+                        Evento: {{ evento.id }}<br>
+                        Nota: {{ evento.nota }}<br>
+                        Data_evento: {{ evento.data_evento }}
+                    </div>
+                </div>
+            </div>
+
+        {% if forloop.counter|divisibleby:'3' or forloop.last  %} </div>{% endif %}
+        {% if forloop.counter|divisibleby:'3' and not  forloop.last  %} <div class="row">{% endif %}
+    {% endfor %}
+
+{% endblock content %}
