@@ -1,5 +1,5 @@
 from django.urls import path
-from iscrizione.views  import (creaIscrizione,EventList,UserIscrizioniList,creaEvento,
+from iscrizione.views  import (creaIscrizione,EventList,UserIscrizioniList,creaEvento,creaFermata,
                     UserIscrizioniListForEvento,UpdateIscrizione,CancellaIscrizione)
 
 urlpatterns = [
@@ -13,5 +13,6 @@ urlpatterns = [
      path('evento/<int:pk>/crea_iscrizione', creaIscrizione,name='crea_iscrizione'),
      path('crea_evento', creaEvento,name='crea_evento'),
      path('listaeventi/', EventList.as_view(), name = 'lista_eventi'),
+     path('crea_fermata', creaFermata,name='crea_fermata'),
 ]
 #

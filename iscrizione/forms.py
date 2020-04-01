@@ -12,6 +12,11 @@ class EventoModelForm(forms.ModelForm):
         model = Eventi
         fields = ['evento','nota','parte_da','data_evento']
 
+class TabellaFermateModelForm(forms.ModelForm):
+    class Meta:
+        model = TabellaFermate
+        fields = ['fermata']
+
 
 
 #from .models import Discussione,Post

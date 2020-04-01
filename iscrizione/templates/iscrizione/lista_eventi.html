@@ -12,6 +12,7 @@
     <div class="col-2 mt-2">
         {% if  request.user.is_staff %}
         <a type="button" href="{% url 'crea_evento' %}" class="btn btn-primary ">Nuovo Evento</a>
+        <a type="button" href="{% url 'crea_fermata' %}" class="btn btn-primary mt-2">Nuova Fermata</a>
         {% endif  %}
 
     </div>
@@ -33,8 +34,8 @@
                          <img src="/static/admin/img/icon-addlink.svg" alt="Aggiungi"></a>
                          </p>
                         Iscrizioni Totali: {{ evento.get_number_of_iscrizioni }}<br>
-                        Iscrizioni  utente: <a href="{% url 'user_iscrizioni_list_for_evento' pk=evento.id  %} ">
-                                        {{ evento.get_number_of_iscrizioni_for_utente }}</a><br>
+                        <a href="{% url 'user_iscrizioni_list_for_evento' pk=evento.id  %} ">
+                                        Iscrizioni  evento: {{ evento }}</a><br>
                         Evento: {{ evento.id }}<br>
                         Nota: {{ evento.nota }}<br>
                         Data_evento: {{ evento.data_evento }}

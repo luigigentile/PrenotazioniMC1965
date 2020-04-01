@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 import datetime
 
 # Create your views here.
-from .forms import IscrizioneModelForm,EventoModelForm
+from .forms import IscrizioneModelForm,EventoModelForm,TabellaFermateModelForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from iscrizione.models import Eventi,TabellaFermate,Iscrizioni
 
@@ -144,3 +144,20 @@ def creaEvento(request):
         form = EventoModelForm()
     context = {'form':form}
     return render(request,"iscrizione/crea_evento.html",context)
+
+
+@login_required
+def creaFermata(request):
+    if request.method == "POST":
+        form = TabellaFermateModelForm(request.POST)
+        if form.is_valid():
+            fermata = form.save(commit=False)
+            fermata.save()
+            success_url = reverse_lazy('lista_eventi')
+            return HttpResponseRedirect(success_url)
+
+
+    else:
+        form = TabellaFermateModelForm()
+    context = {'form':form}
+    return render(request,"iscrizione/crea_fermata.html",context)
