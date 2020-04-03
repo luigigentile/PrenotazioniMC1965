@@ -8,6 +8,7 @@ class Eventi(models.Model):
     nota = models.CharField(max_length=250,blank=True)
     parte_da = models.CharField(max_length=50,blank=True)
     data_evento = models.DateTimeField(blank=True,null=True)
+    numero_massimo_iscritti = models.PositiveIntegerField(default=54)
 
     def __str__(self):
         return  str(self.evento)
@@ -39,6 +40,8 @@ class Iscrizioni(models.Model):
     id_user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='iscrizioni')
     nome = models.CharField(max_length=50)
     cognome = models.CharField(max_length=50)
+    luogo_di_nascita = models.CharField(max_length=50,blank=True)
+    data_nascita = models.DateTimeField(blank=True,null=True)
     telefono = models.CharField(max_length=40,blank=True)
     id_fermata = models.ForeignKey(TabellaFermate,on_delete=models.CASCADE,related_name='fermate',default=1)
 

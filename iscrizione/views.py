@@ -109,6 +109,7 @@ class EventList(ListView,LoginRequiredMixin):
         return context
 #
 
+
 @login_required
 def creaIscrizione(request,pk):
     evento = get_object_or_404(Eventi,pk=pk)
@@ -125,7 +126,7 @@ def creaIscrizione(request,pk):
 
     else:
         form = IscrizioneModelForm()
-    context = {'form':form, 'evento':evento}
+        context = {'form':form, 'evento':evento}
     return render(request,"iscrizione/crea_iscrizione.html",context)
 
 

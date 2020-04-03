@@ -5,12 +5,18 @@ from .models import Iscrizioni,Eventi,TabellaFermate
 class IscrizioneModelForm(forms.ModelForm):
     class Meta:
         model = Iscrizioni
-        fields = ['nome','cognome','telefono','id_fermata']
+        fields = ['nome','cognome','luogo_di_nascita','data_nascita','telefono','id_fermata']
+        widgets = {
+            "nome": forms.TextInput(attrs={"placeholder": "Nome"}),
+            "cognome": forms.TextInput(attrs={"placeholder": "cognome"}),
+            "data_nascita": forms.DateInput(attrs={"placeholder": "data di nascita"})
+        }
+
 
 class EventoModelForm(forms.ModelForm):
     class Meta:
         model = Eventi
-        fields = ['evento','nota','parte_da','data_evento']
+        fields = ['evento','nota','parte_da','numero_massimo_iscritti','data_evento']
 
 class TabellaFermateModelForm(forms.ModelForm):
     class Meta:

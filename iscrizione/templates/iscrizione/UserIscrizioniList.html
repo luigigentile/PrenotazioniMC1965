@@ -4,9 +4,17 @@
 {% block content %}
 
   <script type="text/javascript">
+  function Premimi() {
+    console.log('primo messaggio della funzione console log');
+    var  messaggio = alert("prima funzione");
+      return messaggio
+
+  }
+
   function SelezionaEvento() {
     var IdEvento = document.getElementById('SelectIdEvento').value ;
     var server = 'https://iscrizioneeventomc1965.herokuapp.com/'
+//    var server = 'http://127.0.0.1:8000/'
     var linkPage = server+ 'iscrizione/' + IdEvento + '/useriscrizionilistforevento';
     window.location.href = linkPage;
 
@@ -14,7 +22,7 @@
     }
   </script>
       <!-- selezione di un evento -->
-     <form>
+     <form action ="">
          <tr><th><label for="id_evento">Evento:</label></th><td>
               <select id="SelectIdEvento" name="evento" required id="id_evento" ">
                Copia()">
@@ -26,7 +34,7 @@
 
          <!-- BUTTOM FILTRA    -->
           <input type="button" value = "Filtra" onclick = "SelezionaEvento()" >
-    </form>
+        </form>
 
     <div class=" text-right">
             <span class="step-links">
