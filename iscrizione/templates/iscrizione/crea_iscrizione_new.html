@@ -1,0 +1,106 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head_title %} {{ block.super }} -  Crea Nuova Iscrizione  {% endblock head_title %}
+
+{% block content %}
+<script type="text/javascript">
+
+function getJSON(response){
+    alert("sono in getJSON")
+    let data = response.json();
+    return data;
+}
+
+function SelezionaNominativo() {
+    alert("Questa pagina è stata chiamata da " + document.referrer)
+    let indexIdNominativo = document.getElementById('id_nominativo').selectedIndex
+    if (indexIdNominativo==0) {
+        document.getElementById('id_nome').value = null
+        document.getElementById('id_cognome').value = null
+        document.getElementById('id_luogo_di_nascita').value = null
+        document.getElementById('id_data_nascita').value = null
+        document.getElementById('id_telefono').value = null
+        return
+    }
+    let idnominativo = document.getElementById('id_nominativo').options[indexIdNominativo].value;
+    let urls = "/api/nominativi/" + idnominativo + "/";
+    fetch(urls)
+        .then(function(response) {
+            response.json()
+                .then (function(data) {
+                    document.getElementById('id_nome').value = data.nome
+                    document.getElementById('id_cognome').value = data.cognome
+                    document.getElementById('id_luogo_di_nascita').value = data.luogo_di_nascita
+                    document.getElementById('id_data_nascita').value = data.data_nascita
+                    document.getElementById('id_telefono').value = data.telefono
+                })
+        });
+
+//    var  elenconominativi= '{{lista_nominativi | escapejs  }}';
+//    var evento = '{{evento | escapejs  }}';
+  //  let server = 'https://iscrizioneeventomc1965.herokuapp.com/';
+  //  let linkPage = server+ 'iscrizione/' + IdEvento + '/useriscrizionilistforevento';
+ // window.location.href = 'http://127.0.0.1:8000/admin/iscrizione/anagraficanominativi/';
+
+ return nominativo;
+  }
+
+</script>
+
+<script type="text/javascript" id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" data-model-name="iscrizioni">
+    </script>
+    <script type="text/javascript" id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js" data-prepopulated-fields="[]">
+    </script>
+
+    <div class="bootstrap-select-wrapper">
+
+    <p class = "mx-4 my-2" for="id_nominativo">Seleziona Nominativo:
+         <select  id="id_nominativo" name="nominativo" required onchange= "SelezionaNominativo()">
+          <option value="">---------</option>
+        {% for nominativo  in lista_nominativi %}
+          <option id="id_nominativo" value= {{ nominativo.id_nominativo }}  >  {{ nominativo.cognome}}  {{ nominativo.nome}}  </option>
+        {% endfor %}
+     </select>
+ </p>
+</div>
+
+
+
+    <div class="row-justify-center mt-2">
+            <div class="col-6">
+                <h2>Inserisci nuova Iscrizione in  {{ evento }}!</h2>
+                <h3>Partenza da: {{ evento.parte_da }}</h3>
+
+    <form class="" method="POST" novalidate>
+        {% csrf_token %}
+       <div class="form-row">
+             <div class="form-group col-md-4 mb-0">
+               {{ form.nome|as_crispy_field }}
+             </div>
+             <div class="form-group col-md-4 mb-0">
+               {{ form.cognome|as_crispy_field }}
+             </div>
+
+
+       </div>
+            {{ form.luogo_di_nascita|as_crispy_field }}
+            {{ form.data_nascita|as_crispy_field }}
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    {{ form.telefono|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                    {{ form.id_fermata|as_crispy_field }}
+                </div>
+             </div>
+
+        <input type="submit" class="btn btn-success mr-4" name="btn btn-info" value="Inserisci   ">
+        <a type="button" href="javascript:history.back()" class="btn btn-primary ">Indietro</a>
+        </form>
+        </div>
+
+        </div>
+
+  {% endblock content %}

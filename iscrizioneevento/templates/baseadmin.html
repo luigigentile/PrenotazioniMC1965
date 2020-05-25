@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js"
         integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js"
@@ -18,59 +19,20 @@
 
     <link rel="stylesheet" href="{% static 'css/agora.css' %}">
 
-
     <title>{% block head_title %} MilanClub 1965 {% endblock head_title %} </title>
   </head>
   <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <div class="container">
-            <a class="navbar-brand" href="/">Milan Club 1965</a>
+            <a class="navbar-brand" href="#">Milan Club 1965</a>
             <img src="{% static 'LogoMc1965.jpg' %}" style = 'max-width:6%' >
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'lista_eventi' %}">Lista Eventi <span class="sr-only">(current)</span></a>
-                </li>
-
-
-                    <!-- MENU Drop Down -->
-                {% if request.user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                         Utente: {{ request.user.username }}
-                    </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'lista_eventi' %}">Lista Eventi</a>
-                        <a class="dropdown-item" href="{% url 'user_iscrizioni_list' %}">Elenco Totale Iscrizioni</a>
-                        <a class="dropdown-item" href="{% url 'user_profile' username=request.user.username %}">Profilo</a>
-                        <a class="dropdown-item" href="{% url 'password_change' %}">Aggiorna Password</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'logout' %}">Esci</a>
-                      </div>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'registration_view' %}">Registrazione </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'login' %}">Login </a>
-                    </li>
-                {% endif %}
-
-
-
-              </ul>
-
             </div>
         </div>
       </nav>
-
-
 
       <div class="container">
           {% block content %}

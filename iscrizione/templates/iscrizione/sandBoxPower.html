@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head_title %} {{ block.super }} -  Risposta Prova  {% endblock head_title %}
+
+{% block content %}
+
+<h1>Sono in Sand Box </h1>
+<h2> Qui bisogna inserire le opzioni richieste da Basilio</h2>
+
+<form class="" method="POST" novalidate>
+    {% csrf_token %}
+
+
+    <input type="submit" class="btn btn-success mr-4" name="btn btn-info" value="Esegui    ">
+
+    <a type="button" href="{% url 'lista_eventi' %}" class="btn btn-primary ">Annulla</a>
+    </form>
+
+
+
+
+
+
+
+{% endblock content %}

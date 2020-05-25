@@ -1,25 +1,45 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block head_title %} {{ block.super }} -  Crea Nuova Iscrizione  {% endblock head_title %}
 
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-                alert(` il tuo nome è luigi`);
-        } )
-    </script>
-
-
-
 {% block content %}
-        <div class="row-justify-center mt-4">
+<script type="text/javascript">
+
+function SelezionaNominativo() {
+  let id_nominativo = document.getElementById('id_nominativo').value
+  let nominativo = document.getElementById('id_nominativo').options[id_nominativo].text;
+  alert(nominativo)
+//  let server = 'https://iscrizioneeventomc1965.herokuapp.com/';
+  //  let linkPage = server+ 'iscrizione/' + IdEvento + '/useriscrizionilistforevento';
+ // window.location.href = 'http://127.0.0.1:8000/admin/iscrizione/anagraficanominativi/';
+ document.getElementById('id_nome').innerHTML ="ciao"
+
+ return nominativo;
+  }
+</script>
+
+
+
+<br>
+<form action ="">
+    <tr><th><label for="id_nominativo">Nominativo:</label></th><td>
+         <select  id="id_nominativo" name="nominativo" required onchange= "SelezionaNominativo()">
+          <option value="">---------</option>
+        {% for nominativo  in lista_nominativi %}
+          <option id="id_nominativo" value= {{ nominativo.id_nominativo }}  > {{ nominativo.nome}}  {{ nominativo.cognome}} </option>
+        {% endfor %}
+     </select></td></tr>
+
+    <div class="row-justify-center mt-4">
             <div class="col-6">
-                <h2>Crea Iscrizione in {{ evento }}!</h2>
+                <h2>Crea Iscrizione in   {{ evento }}!</h2>
                 <h3>Partenza da: {{ evento.parte_da }}</h3>
                 <form class="" method="POST" novalidate>
                     {% csrf_token %}
                     {{ form|crispy }}
                     <input type="submit" class="btn btn-success btn-lg mr-4" name="btn btn-info" value="Crea    ">
-                    <a type="button" href="javascript:history.back()" class="btn btn-primary btn-lg">"Indietro"</a>
+                    <a type="button" href="javascript:history.back()" class="btn btn-primary btn-lg">Indietro</a>
                 </form>
 
             </div>

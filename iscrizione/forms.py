@@ -1,15 +1,24 @@
 from django import forms
 
-from .models import Iscrizioni,Eventi,TabellaFermate
+from .models import Iscrizioni,Eventi,TabellaFermate,PowerData
+
+class SimulazioneForm(forms.ModelForm):
+    class Meta:
+        model = PowerData
+        fields = ['power','Number_of_processor','efficienza','power_dissipation']
+
+
+
 
 class IscrizioneModelForm(forms.ModelForm):
     class Meta:
         model = Iscrizioni
         fields = ['nome','cognome','luogo_di_nascita','data_nascita','telefono','id_fermata']
+
         widgets = {
-            "nome": forms.TextInput(attrs={"placeholder": "Nome"}),
+            "nome": forms.TextInput(attrs={"placeholder": "nome"}),
             "cognome": forms.TextInput(attrs={"placeholder": "cognome"}),
-            "data_nascita": forms.DateInput(attrs={"placeholder": "data di nascita"})
+            "data_nascita": forms.DateInput(attrs={"placeholder": "gg/mm/aaaa"})
         }
 
 

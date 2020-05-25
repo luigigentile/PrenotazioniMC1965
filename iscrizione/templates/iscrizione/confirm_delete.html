@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block head_title %} {{ block.super }} - Elimina Iscrizione {% endblock head_title %}
+
+
+{% block content %}
+    <div class="container ml-3">
+
+            <h4>Confermi ? </h4>
+        <br>
+            <h3 class = 'mb-0'>  {{ avviso}}</h3>
+            <br>
+            <p> <strong>Oggetti:</strong> </p>
+            <p
+                class="text-primary">{{ object.ContentToDeletePrimaRiga }}<br>
+                <span  class="text-primary">{{ object.ContentToDeleteSecondaRiga }}</span>><br>
+            </p>
+                 <br>
+            <form  method="POST">
+                {% csrf_token %}
+
+                <input action="iscrizione/1/useriscrizionilistforevento"
+                class ="btn btn-outline-success"
+                type="submit"
+                value="Si, sono sicuro" >
+
+                <a href="javascript:history.back()"
+                class="btn btn-outline-info ml-3">"No, torna indietro"
+                </a>
+
+            </form>
+            </div>
+
+
+{% endblock content %}

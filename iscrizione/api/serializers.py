@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from iscrizione.models import Eventi,TabellaFermate,Iscrizioni
+from iscrizione.models import Eventi,TabellaFermate,Iscrizioni,AnagraficaNominativi
 
 class IscrizioniSerializer(serializers.ModelSerializer):
 
@@ -16,3 +16,11 @@ class EventiSerializer(serializers.ModelSerializer):
     class Meta:
         model = Eventi
         fields ='__all__'
+
+
+class AnagraficaNominativiSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AnagraficaNominativi
+        fields ='__all__'
+#

@@ -3,10 +3,9 @@
 {% block head_title %} {{ block.super }} -  Crea Nuovo Evento  {% endblock head_title %}
 
 {% block content %}
-        <div class="row-justify-center mt-4">
+        <div class="row-justify-center mt-1">
             <div class="col-6">
-                <h2>Crea Nuovo Evento!</h2>
-                <h3>Utente: {{ user.username }}</h3>
+                <h2>Inserisci un  Nuovo Evento!</h2>
                 <form class="" method="POST" novalidate>
                     {% csrf_token %}
                     {{ form|crispy }}

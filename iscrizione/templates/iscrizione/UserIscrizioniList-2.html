@@ -4,6 +4,11 @@
 {% block content %}
 
   <script type="text/javascript">
+  function Premimi() {
+    console.log('primo messaggio della funzione console log');
+    var  messaggio = alert("prima funzione");
+      return messaggio
+  }
 
   function SelezionaEvento() {
 //    alert("Questa pagina è stata chiamata da " + document.referrer)
@@ -15,12 +20,9 @@
 //    var server = 'http://127.0.0.1:8000/'
         var linkPage = server+ 'iscrizione/' + IdEvento + '/useriscrizionilistforevento';
         window.location.href = linkPage;
-        document.getElementById('SelectIdEvento').selectedIndex = IndexIdEvento;
     } else {
         var linkPage = server+ 'iscrizione/'  + 'useriscrizionilist';
-        var linkPage = server+ 'iscrizione/' + '0' + '/useriscrizionilistforevento';
         window.location.href = linkPage;
-        document.getElementById('SelectIdEvento').selectedIndex = IndexIdEvento;
     }
 
     alert(linkpage)
@@ -30,26 +32,20 @@
 
   </script>
 
+
+
       <!-- FILTRO SELEZIONA EVENTO -->
-      <div class="container mt-1">
-        <label for="SelectIdEvento">Evento:   </label>
+         <tr><th><label for="id_evento">Evento:</label></th><td>
         <select  id="SelectIdEvento" name="evento" required onchange= "SelezionaEvento()">
-           <option value="">All.....</option>
+           <option value="">---------</option>
                 {% for evento  in eventi %}
-                    {% if pkevento == evento.id %}
-                        <option value= {{ evento.id }}  selected> {{ evento.evento}}   </option>
-                    {% else %}
-                            <option value= {{ evento.id }}  > {{ evento.evento}}   </option>
-                    {% endif %}
+            <option value= {{ evento.id }}  > {{ evento.evento}}   </option>
                 {% endfor %}
+         </select></td></tr>
 
-         </select>
-         <span class="ml-3">Numero Iscrizioni: {{ object_list.count }}</span>
-      </div>
 
-      <a
      <!--IMPAGINAZIONE    -->
-    <div class=" text-right mt-n4">
+    <div class=" text-right">
         <span class="step-links">
             {% if page_obj.has_previous %}
                 <a href="?page=1">&laquo; prima</a>
@@ -65,37 +61,21 @@
         </span>
     </div>
 
- <!-- INTESTAZIONE   CON PULSANTE INDIETRO -->
+ <!-- INTESTAZIONE    -->
     <div class="container" >
         <div class="row">
             <div class="col-10">
-                <h2 >Lista Iscrizioni: pkevento = {{pkevento}} eventoid = {{evento.id}}
-                {% if pkevento != 0 %}
-                    <a
-                        class="related-widget-wrapper-link add-related" id="add_id_id_user"
-                        href="{% url 'crea_iscrizione' pk=pkevento %}" title="Inserisci un altro partecipante"
-                        ><img src="{% static 'icon-addlink.svg' %}"  alt="Aggiungi">
-                    </a>
-                    {% endif  %}
-
-                </h2>
-
+                <h2 >Lista Iscrizioni:</h2>
             </div>
-            <!-- PULSANTE NUOVA ISCRIZIONE -->
-            <div class="col-2 text-xl-right font-italic">
-                <a
-                type="button" href="javascript:history.back()"
-                class="btn btn-primary btn-sm "
-                 >Indietro</a>
+            <div class="col-2 mt-1">
+                <a type="button" href="javascript:history.back()" class="btn btn-primary btn-lg">Indietro</a>
             </div>
         </div>
     </div>
 
-<!-- RIGHE DEI DATI    -->
-
     <div class="container" id="da_stampare" >
         <div class="row">
-            <div class="col-lg-3 border-bottom border-secondary ">Evento </div>
+            <div class="col-lg-3 border-bottom border-secondary">Evento</div>
             <div class="col-lg-5 border-bottom border-secondary">Nominativo </a> </div>
             <div class="col-lg-2 border-bottom border-secondary">Sale a   </div>
             <div class="col-lg-2 border-bottom border-secondary">Telefono</div>
@@ -106,22 +86,23 @@
     {% for iscrizione in object_list %}
         <div class="container table-striped">
             <div class="row">
-                <div class="col-lg-3 border-bottom">
+                <div class="col-lg-3">
                  {{ iscrizione.id_evento }}
              </div>
-                <div class="col-lg-5 border-bottom" >
+                <div class="col-lg-5">
 
                  <a  href="{% url 'update_iscrizione' pk=iscrizione.id %} " title ="Modifica Iscrizione">
                 <img src="{% static 'icon-changelink.svg' %}"  alt="Modifica"> </a>
 
-                 <a class= "related-widget-wrapper-link add-related mx-1" id="add_id_id_user"
+                 <a class="related-widget-wrapper-link add-related mx-1" id="add_id_id_user"
                   href="{% url 'delete_iscrizione' pk=iscrizione.id %} " title="Elimina Iscrizione">
                   <img src="{% static 'icon-deletelink.svg' %}"  alt="Elimina"></a>
 
+
                   {{ iscrizione.nome }} {{ iscrizione.cognome }}
                 </div>
-                <div class="col-lg-2 border-bottom"> {{ iscrizione.id_fermata }}    </div>
-                <div class="col-lg-2 border-bottom"> {{ iscrizione.telefono }}    </div>
+                <div class="col-lg-2"> {{ iscrizione.id_fermata }}    </div>
+                <div class="col-lg-2"> {{ iscrizione.telefono }}    </div>
             </div>
         </div>
 

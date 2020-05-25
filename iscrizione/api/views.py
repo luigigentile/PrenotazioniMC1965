@@ -4,11 +4,24 @@ from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.exceptions import ValidationError
 
-from iscrizione.models import Eventi,TabellaFermate,Iscrizioni
-from iscrizione.api.serializers import EventiSerializer,IscrizioniSerializer
+from iscrizione.models import Eventi,TabellaFermate,Iscrizioni,AnagraficaNominativi
+from iscrizione.api.serializers import EventiSerializer,IscrizioniSerializer,AnagraficaNominativiSerializer
 #from ebooks.api.permissions import IsAdminUserOrReadOnly,IsReviewAuthorOrReadOnly
 #from ebooks.api.pagination import SmallSetPagination
 #
+
+class AnagraficaNominativiCreateAPIView(generics.ListCreateAPIView):
+    queryset = AnagraficaNominativi.objects.all()
+    serializer_class = AnagraficaNominativiSerializer
+#
+
+
+class AnagraficaNominativiRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset=AnagraficaNominativi.objects.all()
+    serializer_class =  AnagraficaNominativiSerializer
+
+
+
 class IscrizioniDeleteAPIView(generics.DestroyAPIView):
     queryset = Iscrizioni.objects.all()
     serilizer_class = IscrizioniSerializer

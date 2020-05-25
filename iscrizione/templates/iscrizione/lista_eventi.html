@@ -1,50 +1,66 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block head_title %} {{ block.super }} -  Lista Eventi  {% endblock head_title %}
 
-{% block content %}
+  {% block content %}
 
-    <div class="container">
-  <div class="row">
-    <div class="col-10">
-     <h2 class= 'mt-3'>Iscrizione ai Prossimi Eventi:</h2>
-    </div>
-    <div class="col-2 mt-2">
-        {% if  request.user.is_staff %}
-        <a type="button" href="{% url 'crea_evento' %}" class="btn btn-primary ">Nuovo Evento</a>
-        <a type="button" href="{% url 'crea_fermata' %}" class="btn btn-primary mt-2">Nuova Fermata</a>
-        {% endif  %}
 
-    </div>
-  </div>
+<!-- PULSANTI NUOVO EVENTO E NUOVA FERMATA -->
+<div class="container">
+      <div class="row">
+        <div class="col-10">
+         <h2 class= 'mt-3'>Iscrizione ai Prossimi Eventi:</h2>
+        </div>
+        <div class="col-2 mt-2">
+            {% if  request.user.is_staff %}
+            <a type="button" href="{% url 'crea_evento' %}" class="btn btn-success ">Nuovo Evento</a>
+            <a type="button" href="{% url 'crea_fermata' %}" class="btn btn-success mt-2">Nuova Fermata</a>
+            {% endif  %}
+
+        </div>
+      </div>
 </div>
-
-
     <br>
-
+<div class="container  d-print-block">
 
     {% for evento in object_list %}
-        {% if forloop.first %}<div class="row">{% endif %}
+
+        {% if forloop.first %} <div class="row">{% endif %}
             <div class="col-lg-4">
                 <div class="card my-1 border border-info">
-                    <div class="card-body py-0">
-                        <p class='mb-0'><strong>@{{ evento.evento }}</strong>
-                        <a class="related-widget-wrapper-link add-related" id="add_id_id_user"
-                         href="{% url 'crea_iscrizione' pk=evento.id %}" title="Inserisci un altro partecipante">
-                         <img src="/static/admin/img/icon-addlink.svg" alt="Aggiungi"></a>
-                         </p>
-                        Iscrizioni Totali: {{ evento.get_number_of_iscrizioni }}<br>
-                        <a href="{% url 'user_iscrizioni_list_for_evento' pk=evento.id  %} ">
-                                        Iscrizioni  evento: {{ evento }}</a><br>
-                        Evento: {{ evento.id }}<br>
+                    <p
+                    class='card-header mb-0'>
+                    <strong>@{{ evento.evento }}<br>
+                        {% for numeroIscritti in IscrizioniGroupByEvento %}
+                            {% if numeroIscritti.total == evento.id %}
+                                Partecipanti iscritti da {{ request.user.username }} : {{numeroIscritti.total}}
+                            {% endif %}
+                        {% endfor %}
+                    </strong>
+                    <!-- PULSANTE NUOVA ISCRIZIONE -->
+                    <a
+                        class="related-widget-wrapper-link add-related" id="add_id_id_user"
+                        href="{% url 'crea_iscrizione' pk=evento.id %}" title="Inserisci un altro partecipante"
+                        ><img src="{% static 'icon-addlink.svg' %}"  alt="Aggiungi">
+                    </a>
+                    </p>
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-0">
+
+
+                            <a
+                                href="{% url 'user_iscrizioni_list_for_evento' pk=evento.id  %} "
+                                >Iscrizioni Totali Evento: {{ evento.get_number_of_iscrizioni }}
+                            </a>
+                        </h6>
+                        Data evento: {{ evento.data_evento }}
                         Nota: {{ evento.nota }}<br>
-                        Data_evento: {{ evento.data_evento }}
                     </div>
                 </div>
             </div>
-
         {% if forloop.counter|divisibleby:'3' or forloop.last  %} </div>{% endif %}
         {% if forloop.counter|divisibleby:'3' and not  forloop.last  %} <div class="row">{% endif %}
     {% endfor %}
 
+</div>
 {% endblock content %}
