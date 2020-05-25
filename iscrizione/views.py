@@ -57,6 +57,7 @@ def creaSimulazione(request):
     else:
         print("creo simulazione")
         sandobox_dir = '/mnt/c/lavori/GitHub/CircuitMindRepositories/sandbox'
+        sandobox_dir = 'C:\Lavori\GitHub\CircuitMindRepositories\sandbox'
         os.chdir(sandobox_dir)
         #   RUN THE power_achitect script in a subprocess
         subprocess.run("python power/power_architect_original.py",shell=True)
@@ -96,7 +97,6 @@ class UpdateIscrizione(UpdateView):
 
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
         context['iscrizioni'] = Iscrizioni.objects.all()
         return context
 
