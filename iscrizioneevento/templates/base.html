@@ -39,17 +39,12 @@
 
               <ul class="navbar-nav ml-auto">
 
-              <li class="nav-item">
-                  <a class="nav-link" href="{% url 'crea_simulazione' %}">Crea Simulazione <span class="sr-only">(current)</span></a>
-              </li>
-            
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'lista_eventi' %}">Lista Eventi <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'user_iscrizioni_list_for_evento' pk=0 %}">Lista Iscrizioni <span class="sr-only">(current)</span></a>
                 </li>
-
 
                 <!-- MENU Drop Down -->
                 {% if request.user.is_authenticated %}

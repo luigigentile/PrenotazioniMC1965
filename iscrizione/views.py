@@ -91,12 +91,13 @@ class CancellaIscrizione(DeleteView):
 
 class UpdateIscrizione(UpdateView):
     model = Iscrizioni
-    print("Sono in update iscrizioni")
     fields = ['nome','cognome','telefono','id_fermata']
     template_name = "iscrizione/update_iscrizione.html"
 
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        evento=self.kwargs.get("pk")
         context['iscrizioni'] = Iscrizioni.objects.all()
         return context
 
@@ -125,6 +126,7 @@ class UserIscrizioniListForEvento(ListView,LoginRequiredMixin):
             context = super().get_context_data(**kwargs)
             evento=self.kwargs.get("pk")
             cache.set('evento', evento, 30)
+            print(evento)
             context['eventi'] = Eventi.objects.all()
             context['pkevento']= evento
             return context
