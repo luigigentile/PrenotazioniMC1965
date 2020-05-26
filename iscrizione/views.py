@@ -108,7 +108,7 @@ class UpdateIscrizione(UpdateView):
 
 class UserIscrizioniListForEvento(ListView,LoginRequiredMixin):
     model = Iscrizioni
-#    paginate_by =10
+    paginate_by =10
     template_name = 'iscrizione/UserIscrizioniList.html'
     context_object_name = 'useriscrizioni'
 
@@ -116,9 +116,9 @@ class UserIscrizioniListForEvento(ListView,LoginRequiredMixin):
         user_id=self.request.user.id
         evento=self.kwargs.get("pk")
         if evento == 0:
-            qset= Iscrizioni.objects.filter(id_user=user_id)
+            qset= Iscrizioni.objects.filter(id_user=user_id).order_by('-id')
         else:
-            qset= Iscrizioni.objects.filter(id_user=user_id,id_evento=evento)
+            qset= Iscrizioni.objects.filter(id_user=user_id,id_evento=evento).order_by('-id')
         return qset
 
     def get_context_data(self, **kwargs):
@@ -126,8 +126,8 @@ class UserIscrizioniListForEvento(ListView,LoginRequiredMixin):
             context = super().get_context_data(**kwargs)
             evento=self.kwargs.get("pk")
             cache.set('evento', evento, 30)
-            print(evento)
-            context['eventi'] = Eventi.objects.all()
+#            print(evento)
+            context['eventi'] = Eventi.objects.all().order_by('-id')
             context['pkevento']= evento
             return context
 
@@ -140,14 +140,14 @@ class UserIscrizioniList(ListView,LoginRequiredMixin):
 
     def get_queryset(self,*args):
         user_id=self.request.user.id
-        qsuseriscrizioni= Iscrizioni.objects.filter(id_user=user_id).order_by('-id_evento_id')
+        qsuseriscrizioni= Iscrizioni.objects.filter(id_user=user_id).order_by('-id_evento')
         return qsuseriscrizioni
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get the context
         context = super().get_context_data(**kwargs)
         # Create any data and add it to the context
-        context['eventi'] = Eventi.objects.all()
+        context['eventi'] = Eventi.objects.all().order_by('-id')
         return context
 
 
@@ -158,15 +158,15 @@ class EventList(ListView,LoginRequiredMixin):
     context_object_name = 'eventi'
 
     def get_queryset(self,*args):
-
-#        queryseteventi=Eventi.objects.all
+#        queryseteventi= Eventi.objects.filter(data_evento__gt=datetime.datetime.now())
         queryseteventi= Eventi.objects.filter(data_evento__gt=datetime.datetime.now())
         return queryseteventi
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        event_list = Eventi.objects.all()
+        event_list = Eventi.objects.all().order_by('-id')
         IscrizioniGroupByEvento = Iscrizioni.objects.values('id_evento').annotate(total=Count('id')).filter(id_user = self.request.user.id)
+#        print(IscrizioniGroupByEvento)
 #        print(self.request.user.id)
 #        print(event_list)
 #        print(IscrizioniGroupByEvento)
@@ -177,6 +177,7 @@ class EventList(ListView,LoginRequiredMixin):
         context['paginator'] =paginator
         context['IscrizioniGroupByEvento'] = IscrizioniGroupByEvento
         return context
+#
 #
 
 
