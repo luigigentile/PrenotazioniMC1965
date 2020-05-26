@@ -32,7 +32,7 @@
                     class='card-header mb-0'>
                     <strong>@{{ evento.evento }}<br>
                         {% for numeroIscritti in IscrizioniGroupByEvento %}
-                            {% if numeroIscritti.total == evento.id %}
+                            {% if numeroIscritti.id_evento == evento.id %}
                                 Partecipanti iscritti da {{ request.user.username }} : {{numeroIscritti.total}}
                             {% endif %}
                         {% endfor %}
@@ -46,8 +46,6 @@
                     </p>
                     <div class="card-body">
                         <h6 class="card-subtitle mb-0">
-
-
                             <a
                                 href="{% url 'user_iscrizioni_list_for_evento' pk=evento.id  %} "
                                 >Iscrizioni Totali Evento: {{ evento.get_number_of_iscrizioni }}
