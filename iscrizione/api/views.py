@@ -1,8 +1,11 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins
-from rest_framework import generics
+from rest_framework import generics,status
+from rest_framework.views import APIView
 from rest_framework import permissions
+from rest_framework.response import  Response
 from rest_framework.exceptions import ValidationError
+
 
 from iscrizione.models import Eventi,TabellaFermate,Iscrizioni,AnagraficaNominativi
 from iscrizione.api.serializers import EventiSerializer,IscrizioniSerializer,AnagraficaNominativiSerializer
@@ -70,6 +73,15 @@ class IscrizioniCreateAPIView(generics.CreateAPIView):
 #            raise ValidationError("Hai già recensito questo libro")
 #
         serializer.save(id_evento=evento,id_user=id_user)
+
+
+
+class anagraficaNominativiDeleteAll(APIView):
+
+    def delete(self, request,  format=None):
+        AnagraficaNominativi.objects.all().delete()
+        return Response(status=status.HTTP_200_OK)
+
 
 
 

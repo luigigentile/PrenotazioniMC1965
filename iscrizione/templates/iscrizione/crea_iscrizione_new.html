@@ -60,17 +60,16 @@ function SelezionaNominativo() {
          <select  id="id_nominativo" name="nominativo" required onchange= "SelezionaNominativo()">
           <option value="">---------</option>
         {% for nominativo  in lista_nominativi %}
-          <option id="id_nominativo" value= {{ nominativo.id_nominativo }}  >  {{ nominativo.cognome}}  {{ nominativo.nome}}  </option>
+          <option id="id_nominativo" value= {{ nominativo.id_nominativo }}  >  {{ nominativo.cognome}}  {{ nominativo.nome}} - {{ nominativo.data_nascita|date:" Y"}} </option>
         {% endfor %}
      </select>
  </p>
 </div>
 
 
-
     <div class="row-justify-center mt-2">
             <div class="col-6">
-                <h2>Inserisci nuova Iscrizione in  {{ evento }}!</h2>
+                <h2>Inserisci nuova Iscrizione in  {{ evento.evento }}!</h2>
                 <h3>Partenza da: {{ evento.parte_da }}</h3>
 
     <form class="" method="POST" novalidate>
